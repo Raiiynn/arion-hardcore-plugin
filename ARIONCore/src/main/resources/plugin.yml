@@ -1,0 +1,19 @@
+name: ARIONCore
+version: '${version}'
+main: id.arion.core.ARIONCorePlugin
+api-version: '1.21.11'
+description: ARION season foundation and persistent DeathBan
+authors: [ARION]
+softdepend: [Factions]
+commands:
+  arion:
+    description: ARIONCore administration
+    usage: /arion <status|deathban|faction>
+    permission: arion.admin
+permissions:
+  arion.admin:
+    description: Inspect ARIONCore and manage DeathBans
+    default: op
+  arion.deathban.bypass:
+    description: Exempt future deaths from DeathBan (does not clear existing bans)
+    default: false

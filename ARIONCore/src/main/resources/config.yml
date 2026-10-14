@@ -1,0 +1,33 @@
+# Milestone 1: world + deathban + integrations are active.
+world: areus_s1
+deathban:
+  duration-seconds: 1800
+  # All causes of death in the exact configured world. Login restriction is server-wide.
+integrations:
+  saberfactions:
+    required: false # true blocks login if the exact supported plugin is unavailable
+
+# Reserved specification for later milestones; NOT enforced by Milestone 1.
+season:
+  timezone: Asia/Jakarta
+  starts-at: null # Must be explicitly chosen; never assume plugin boot = season start
+  faction-count: 3
+  max-members-per-faction: 10
+  progression: [] # Phase names, days, and unlocks need confirmation
+war:
+  first-day: 7
+  interval-days: 7
+  duration-seconds: 3600
+  capture-seconds: 60
+  neutralize-seconds: 30
+  contested-policy: pause # Proposed; no decay while contested
+territories:
+  - id: territory_1
+    points: 5
+  - id: territory_2
+    points: 3
+  - id: territory_3
+    points: 3
+rewards:
+  claim-scope: territory-per-war
+  items: [] # No invented rewards or economy values
