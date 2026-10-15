@@ -6,3 +6,5 @@ run/
 *.db-wal
 .idea/
 *.iml
+.tools/
+build-jdk-metadata.json

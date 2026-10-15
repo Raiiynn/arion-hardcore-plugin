@@ -1,5 +1,13 @@
 # Pengujian ARIONCore M1
 
+## Genesis automated checks and staging
+
+The Genesis suite adds tests for configuration types and safe defaults, faction/region assignment, connected group placement, separation, hazard/border filtering, legal transitions, duplicate start intent, bounded in-flight dispatch, timeout/retry behavior, stale callbacks, SQLite snapshot/reopen, unique active session, archive retention, stale write rejection, rollback and ambiguous crash outcomes. Existing M1 tests remain unchanged.
+
+Run `gradlew.bat build` with JDK 21. Test temporary files now use `build/test-tmp` for reproducible workspace-local SQLite tests. These are domain/configuration/SQLite tests, not a simulated Paper runtime. Follow [GENESIS.md](GENESIS.md#required-staging-acceptance-not-claimed-by-unit-tests) for live scheduler, Saber, worldgen, lightning, cross-world teleport, Bedrock and thirty-player verification.
+
+The original M1 results/checklist below remain historical context.
+
 ## Otomatis
 
 Dengan JDK 21: `./gradlew clean build` atau `gradlew.bat clean build`.

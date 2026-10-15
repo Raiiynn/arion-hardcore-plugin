@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "id.arion"
-version = "0.1.0-SNAPSHOT"
+version = "0.2.0-SNAPSHOT"
 val pluginVersion = version.toString()
 
 repositories {
@@ -49,6 +49,7 @@ dependencies {
     implementation("org.xerial:sqlite-jdbc:3.49.1.0") { exclude(group = "org.slf4j") }
     testImplementation(platform("org.junit:junit-bom:5.12.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testRuntimeOnly("org.slf4j:slf4j-simple:2.0.17")
 }
@@ -80,7 +81,12 @@ tasks.processResources {
     inputs.property("version", pluginVersion)
     filesMatching("plugin.yml") { expand("version" to pluginVersion) }
 }
-tasks.test { useJUnitPlatform() }
+tasks.test {
+    useJUnitPlatform()
+    val testTemp = layout.buildDirectory.dir("test-tmp")
+    systemProperty("java.io.tmpdir", testTemp.get().asFile.absolutePath)
+    doFirst { testTemp.get().asFile.mkdirs() }
+}
 tasks.withType<AbstractArchiveTask>().configureEach {
     isPreserveFileTimestamps = false
     isReproducibleFileOrder = true

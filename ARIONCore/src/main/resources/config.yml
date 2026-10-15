@@ -31,3 +31,35 @@ territories:
 rewards:
   claim-scope: territory-per-war
   items: [] # No invented rewards or economy values
+
+# Genesis is opt-in. Configure real faction IDs, curated regions, and opening world first.
+genesis:
+  enabled: false
+  opening-world: ""
+  destination-world: areus_s1
+  faction-count: 3
+  faction-ids: []
+  max-players-per-faction: 10
+  excluded-player-uuids: [] # Explicitly exclude the GM/staff; everyone else in opening-world participates.
+  minimum-faction-distance: 2000
+  spawn-group-radius: 12
+  world-border-margin: 64
+  destination-spawn-exclusion-radius: 256
+  candidate-regions: [] # See docs/GENESIS.md for the required shape and optional fallback-anchor.
+  excluded-regions: [] # Include territory, capture, war and unsupported protection areas.
+  protection-review-confirmed: false # Operator has audited other protection plugins and curated exclusions.
+  biome-restrictions:
+    enabled: false
+    denied: []
+  maximum-search-attempts: 200
+  maximum-preparation-duration-seconds: 120
+  chunk-loading-concurrency: 2
+  allow-chunk-generation: false
+  preparation-budget-ms-per-tick: 2
+  ready-timeout-seconds: 900
+  lightning-to-teleport-delay-ticks: 40
+  teleport-timeout-seconds: 15
+  arrival-protection-duration-seconds: 5
+  title: "ARION — The Beginning"
+  subtitle: "Yōkoso, Sakasama no Sekai."
+  debug: false

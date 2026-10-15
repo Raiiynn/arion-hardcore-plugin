@@ -1,5 +1,27 @@
 # Dependensi dan API yang divalidasi
 
+## Genesis addition — 15 Oktober 2026
+
+Genesis retains the pinned Paper and Saber checksums below. The release JAR was downloaded, SHA-256 checked, and inspected with Java 21 `javap` before extending the adapter. Additional verified public signatures:
+
+```java
+Factions.getInstance().getFactionById(String);
+Faction.getFPlayers();
+Faction.getAltPlayers();
+FPlayer.getId();
+Board.getInstance().getFactionAt(FLocation);
+FLocation.wrap(org.bukkit.Location);
+Faction.isWilderness();
+```
+
+Paper's pinned binary also exposes `World.getChunkAtAsync(int,int,boolean)`, plugin chunk ticket methods, `World.strikeLightningEffect(Location)`, `Entity.teleportAsync(Location, TeleportCause)` and `Entity.collidesAt(Location)`. Compilation validates the methods actually used. Paper is a test dependency for configuration/algorithm tests as well as a compile-only runtime API; it is not shaded into the plugin.
+
+WorldGuard is optional and accessed through its public 7.x API shape, with exceptions failing closed. The primary [RegionManager source](https://github.com/EngineHub/WorldGuard/blob/version/7.0.x/worldguard-core/src/main/java/com/sk89q/worldguard/protection/managers/RegionManager.java) and [ApplicableRegionSet source](https://github.com/EngineHub/WorldGuard/blob/version/7.0.x/worldguard-core/src/main/java/com/sk89q/worldguard/protection/ApplicableRegionSet.java) were inspected for region queries. Runtime testing of the exact installed WorldGuard/WorldEdit combination remains required. A global WorldGuard region deliberately excludes the entire destination world.
+
+No claim is made that a live Paper/Saber/Vault/WorldGuard/Geyser server has passed integration tests. See [Genesis runbook](GENESIS.md) for the required staging checks.
+
+## Original M1 verification
+
 Diperiksa 14 Oktober 2026. Validasi build/API tidak sama dengan pengujian kompatibilitas seluruh plugin pada server hidup.
 
 | Komponen | Versi / resolusi | Penggunaan |

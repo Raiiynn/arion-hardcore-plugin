@@ -29,6 +29,8 @@ public final class ARIONCorePlugin extends JavaPlugin {
     private FactionGateway factions;
     private Plugin saberPlugin;
     private String factionStatus = "unavailable";
+    private id.arion.core.genesis.GenesisService genesis;
+    private String genesisStatus = "disabled";
 
     @Override public void onEnable() {
         // Register the login guard first; initialization errors must not silently allow banned users in.
@@ -45,6 +47,7 @@ public final class ARIONCorePlugin extends JavaPlugin {
             deathBans = new DeathBanService(database, Clock.systemUTC(), settings.deathBanDuration(), settings.world());
             setupFactions();
             health.set("READY");
+            setupGenesis();
             if (getServer().getWorld(settings.world()) == null) {
                 getLogger().warning("World " + settings.world() + " is not loaded. DeathBan triggers only in that exact world.");
             }
@@ -70,6 +73,21 @@ public final class ARIONCorePlugin extends JavaPlugin {
     }
 
     public boolean ready() { return health.get().equals("READY"); }
+    private void setupGenesis() {
+        try {
+            var config = id.arion.core.genesis.GenesisConfig.read(getConfig());
+            if (config == null) return;
+            genesis = new id.arion.core.genesis.GenesisService(this, config);
+            getServer().getPluginManager().registerEvents(new id.arion.core.genesis.GenesisListener(genesis), this);
+            genesisStatus = "enabled";
+        } catch (Exception | LinkageError failure) {
+            if (genesis != null) { genesis.close(); genesis = null; }
+            genesisStatus = "unavailable: " + failure.getMessage();
+            getLogger().log(Level.SEVERE, "Genesis unavailable; DeathBan remains active", failure);
+        }
+    }
+    public Optional<id.arion.core.genesis.GenesisService> genesis() { return Optional.ofNullable(genesis); }
+    public String genesisStatus() { return genesis == null ? genesisStatus : genesis.status(); }
     public String health() { return health.get(); }
     public DeathBanService deathBans() { return Objects.requireNonNull(deathBans); }
     public Optional<FactionGateway> factions() {
@@ -101,6 +119,7 @@ public final class ARIONCorePlugin extends JavaPlugin {
 
     @Override public void onDisable() {
         health.set("STOPPED");
+        if (genesis != null) genesis.close();
         if (database != null) {
             try { database.close(); }
             catch (Exception failure) { getLogger().log(Level.SEVERE, "Failed to close SQLite", failure); }

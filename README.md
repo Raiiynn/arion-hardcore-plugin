@@ -9,7 +9,7 @@ Plugin Minecraft untuk Paper, dibangun dengan Java 21 dan SQLite.
 ![Java 21](https://img.shields.io/badge/Java-21-F59E0B?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Paper 1.21.11](https://img.shields.io/badge/Paper-1.21.11-38BDF8?style=for-the-badge)
 ![SQLite](https://img.shields.io/badge/Storage-SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
-![Milestone 1](https://img.shields.io/badge/Status-Milestone_1-A78BFA?style=for-the-badge)
+![Genesis staging](https://img.shields.io/badge/Status-Genesis_staging-A78BFA?style=for-the-badge)
 
 [Fitur](#fitur) · [Quick start](#quick-start) · [Commands](#commands-dan-izin) · [Operasional](#operasional) · [Dokumentasi](#dokumentasi)
 
@@ -17,13 +17,13 @@ Plugin Minecraft untuk Paper, dibangun dengan Java 21 dan SQLite.
 
 ---
 
-> **Milestone 1 — untuk server uji.** DeathBan dan administrasi sudah tersedia. Sistem conquest masih dalam tahap rancangan; validasi runtime pada server Paper hidup belum selesai. Lihat [hasil validasi](docs/BUILD-RESULT.md).
+> **0.2.0 ? Genesis tersedia untuk staging.** Modul opening Genesis ditambahkan ke ARIONCore existing dan nonaktif secara default. Isi konfigurasi world, faction ID, dan region sebelum mengaktifkan. Lihat [runbook Genesis](ARIONCore/docs/GENESIS.md). Runtime Paper/Saber dan rehearsal 30 pemain tetap wajib sebelum produksi; Territory Conquest masih berupa rancangan.
 
 ## Sekilas
 
 | Komponen | Detail |
 | :--- | :--- |
-| Versi plugin | `0.1.0-SNAPSHOT` |
+| Versi plugin | `0.2.0-SNAPSHOT` |
 | Platform | Paper `1.21.11` · Java `21` |
 | Build | Gradle Kotlin DSL + Gradle Wrapper |
 | Penyimpanan | SQLite · UUID pemain · waktu absolut UTC |
@@ -54,7 +54,7 @@ Plugin Minecraft untuk Paper, dibangun dengan Java 21 dan SQLite.
 | War, scoring, dan ownership territory | Dirancang · belum aktif |
 | Reward GUI dan proteksi territory | Dirancang · belum aktif |
 
-Detail tersedia dalam [rancangan sistem](docs/DESIGN.md). M1 belum menggantikan sistem conquest produksi.
+Detail tersedia dalam [rancangan sistem](ARIONCore/docs/DESIGN.md). M1 belum menggantikan sistem conquest produksi.
 
 ## Quick start
 
@@ -77,9 +77,9 @@ sh ./gradlew clean build --no-daemon
 
 </details>
 
-Build mengunduh Paper API dari repo Paper, SQLite/JUnit dari Maven Central, serta JAR SaberFactions dari rilis GitHub resmi dengan SHA-256 yang dikunci. SaberFactions hanya dipakai saat kompilasi dan **tidak dibundel** dalam ARIONCore. Detail provenance: [DEPENDENCIES.md](docs/DEPENDENCIES.md).
+Build mengunduh Paper API dari repo Paper, SQLite/JUnit dari Maven Central, serta JAR SaberFactions dari rilis GitHub resmi dengan SHA-256 yang dikunci. SaberFactions hanya dipakai saat kompilasi dan **tidak dibundel** dalam ARIONCore. Detail provenance: [DEPENDENCIES.md](ARIONCore/docs/DEPENDENCIES.md).
 
-Hasil yang dipasang: `build/libs/ARIONCore-0.1.0-SNAPSHOT.jar`. Jangan memasang JAR berakhiran `-plain.jar`.
+Hasil yang dipasang: `build/libs/ARIONCore-0.2.0-SNAPSHOT.jar`. Jangan memasang JAR berakhiran `-plain.jar`.
 
 ### 2. Pasang di server uji
 
@@ -87,7 +87,7 @@ Hasil yang dipasang: `build/libs/ARIONCore-0.1.0-SNAPSHOT.jar`. Jangan memasang 
 2. Salin JAR ARIONCore ke `plugins/`. Untuk menguji adapter faction, pasang Vault dan JAR SaberFactions resmi versi tepat di atas.
 3. Jalankan server. Pastikan world `areus_s1` tersedia; ARIONCore **tidak membuat atau memuat world**. Jika survival utama harus bernama itu, atur `level-name=areus_s1` sebelum membuat dunia baru, atau gunakan pengelola world Anda.
 4. Periksa console atau `/arion status`: harus `READY`. Edit `plugins/ARIONCore/config.yml` lalu restart penuh untuk menerapkan konfigurasi.
-5. Ikuti [checklist pengujian di server](docs/TESTING.md).
+5. Ikuti [checklist pengujian di server](ARIONCore/docs/TESTING.md).
 
 SaberFactions opsional untuk uji DeathBan terpisah (`integrations.saberfactions.required: false`). Jika `true`, plugin hilang/versi berbeda menggagalkan inisialisasi dan menutup login. Ini bukan klaim bahwa conquest dapat berjalan tanpa SaberFactions.
 
@@ -144,10 +144,10 @@ Untuk beban 30 pemain, write SQLite dilakukan sinkron supaya commit selesai sebe
 
 | Dokumen | Isi |
 | :--- | :--- |
-| [Desain sistem](docs/DESIGN.md) | Spesifikasi, asumsi, batas modul, milestone, dan invariant anti-duplikasi |
-| [Dependensi](docs/DEPENDENCIES.md) | Versi, sumber API, checksum, dan batas validasi |
-| [Panduan pengujian](docs/TESTING.md) | Pengujian otomatis dan checklist skenario server |
-| [Hasil build](docs/BUILD-RESULT.md) | Catatan validasi M1 dan hal yang belum diuji |
+| [Desain sistem](ARIONCore/docs/DESIGN.md) | Spesifikasi, asumsi, batas modul, milestone, dan invariant anti-duplikasi |
+| [Dependensi](ARIONCore/docs/DEPENDENCIES.md) | Versi, sumber API, checksum, dan batas validasi |
+| [Panduan pengujian](ARIONCore/docs/TESTING.md) | Pengujian otomatis dan checklist skenario server |
+| [Hasil build](ARIONCore/docs/BUILD-RESULT.md) | Catatan validasi M1 dan hal yang belum diuji |
 
 ---
 

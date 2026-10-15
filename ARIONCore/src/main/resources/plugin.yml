@@ -2,15 +2,18 @@ name: ARIONCore
 version: '${version}'
 main: id.arion.core.ARIONCorePlugin
 api-version: '1.21.11'
-description: ARION season foundation and persistent DeathBan
+description: ARION season foundation, persistent DeathBan and Genesis opening event
 authors: [ARION]
-softdepend: [Factions]
+softdepend: [Factions, WorldGuard]
 commands:
   arion:
     description: ARIONCore administration
-    usage: /arion <status|deathban|faction>
+    usage: /arion <help|status|deathban|faction|genesis>
     permission: arion.admin
 permissions:
+  arion.admin.genesis:
+    description: Prepare, start and recover the Genesis opening event (also requires arion.admin)
+    default: op
   arion.admin:
     description: Inspect ARIONCore and manage DeathBans
     default: op
